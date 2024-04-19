@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Lexend+Deca:wght@100;200;300;400;500;600;700&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+:root {
+    --font-family-acme: 'Acme', sans-serif;
+    --font-family-lexend: 'Lexend Deca', sans-serif;
+    --font-family-roboto: 'Roboto', sans-serif;
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #0a3c2f;
+    font-family: var(--font-family-lexend);
+    overflow-x: hidden;
+
+}
+
+.flex-r {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-c {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    position: relative;
+    gap: 15px;
+    width: 100%;
+    /* min-height: 100vh; */
+    background: #252839;
+    padding: 2% 0;
+}
+
+.heading h1 {
+    color: #fff;
+    font-size: 4vw;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    position: relative;
+    /* -webkit-text-stroke: 0.3vw #383d52; */
+}
+
+.heading h1::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    color: #FFC436;
+    -webkit-text-stroke: 0vw #383d52;
+    border-right: 2px solid #FFC436;
+    overflow: hidden;
+    animation: animate 6s linear infinite;
+}
+
+@keyframes animate {
+
+    0%,
+    10%,
+    100% {
+        width: 0%;
+    }
+
+    70%,
+    90% {
+        width: 100%;
+    }
+}
+
+
+/* reset our game */
+.reset {
+    padding: 15px 20px;
+    color: #252839;
+    background: #fff;
+    border: none;
+    font-size: 15px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 900;
+    border-radius: 10px;
+}
+
+.reset:focus {
+    color: #E19898;
+}
+
+
+.cards {
+    width: 440px;
+    height: 440px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    transform-style: preserve-3d;
+    perspective: 500px;
+}
+
+.card {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border-radius: .6rem;
+    padding: 2rem;
+    box-shadow: rgba(165, 162, 165, 0.2) 0px 8px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    cursor: pointer;
+    transition: 0.25s;
+    transform: rotateY(180deg);
+
+}
+
+
+/* selected card -- card that is flipped  */
+.card.selected_card {
+    transform: rotateY(0deg);
+}
+
+
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* opacity: .6; */
+    background: #E19898;
+    border-radius: .6rem;
+    transition: 0.25s;
+    transform: rotateY(0deg);
+    backface-visibility: hidden;
+    box-shadow: 4px 0px 39px 0px rgba(0, 0, 0, 0.75);
+}
+
+/* match-style -- match-style is aplied over the same card by DOM manipulation at run time using js  */
+.selected_card::after,
+.match-style::after {
+    transform: rotateY(180deg);
+}
+
+.score {
+    color: #fff;
+    margin-left: 5px;
+}
+
+.score h2 {
+    margin-right: 5px;
+}
+
+.selected_card {
+    border: 2px solid red;
+}
+
+
+
+
+
+/* confitti */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
